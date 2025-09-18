@@ -14,9 +14,7 @@ def zen_count(code: str) -> tuple[int, list[str]]:
     # 2) Tiefe Verschachtelung
     if code.count("    ") > 10:  # Mehr als 10 Indents
         count += 1
-        notes.append(
-            "Sehr tief verschachtelt. Flat is better than nested… just saying."
-        )
+        notes.append("Sehr tief verschachtelt. Flat is better than nested… just saying.")
 
     # 3) Kommentare
     if "#" in code:
