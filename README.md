@@ -120,3 +120,60 @@ Diese führt dann automatisch:
 - Upload in PyPI / Nexus / Artifactory  
 
 *(→ siehe `.github/workflows/publish.yml` in diesem Projekt – kommt bald ✨)*  
+
+## 📁 Package-Struktur
+
+Ein Python-Package ist ein **Verzeichnis**, das mindestens eine `__init__.py`-Datei enthält.  
+Ein Package kann mehrere **Module** (Einzeldateien `.py`) und weitere Subpackages enthalten.
+
+Beispielstruktur für `rate-my-code`:
+
+```
+rate_my_code/           # Package
+├── __init__.py         # Initialisierung & zentrale Importe
+├── core.py             # Modul
+├── fish.py             # Modul
+├── kot.py              # Modul
+├── pylint.py           # Modul
+tests/                  # Testcode, kein Package
+├── test_core.py
+├── test_fish.py
+└── test_pylint.py
+README.md
+pyproject.toml
+```
+
+- **Module**: Einzelne `.py`-Dateien mit Funktionen, Klassen, Variablen  
+- **Package**: Verzeichnis mit `__init__.py`, das Module und ggf. Subpackages zusammenfasst
+
+---
+
+### 1️⃣ `__init__.py`
+
+- Wird beim Import des Packages ausgeführt.  
+- Kann zentrale Funktionen der Submodule verfügbar machen:
+
+```python
+from .core import rate_my_code
+from .fish import rate_my_cod
+from .kot import rate_my_kot
+from .pylint import run_pylint
+```
+
+So können Nutzer:innen alles direkt aus dem Package importieren:
+
+```python
+from rate_my_code import rate_my_code, run_pylint
+```
+
+---
+
+### 2️⃣ `__all__`
+
+```python
+__all__ = ["rate_my_code", "rate_my_cod", "rate_my_kot", "run_pylint"]
+```
+
+- Legt fest, welche Symbole **öffentlich** sind.  
+- Relevant für `from rate_my_code import *`.  
+- Reihenfolge ist nicht wichtig, dient nur der Lesbarkeit.
