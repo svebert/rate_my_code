@@ -46,7 +46,10 @@ def zen_count(code: str) -> tuple[int, list[str]]:
     # 8) Funktionen und Klassen
     if "def " in code or "class " in code:
         count += 1
-        notes.append("Funktionen oder Klassen definiert – There should be one obvious way to do it.")
+        notes.append(
+            "Funktionen oder Klassen definiert – "
+            "There should be one obvious way to do it."
+        )
 
     # 9) Keine globalen Variablen
     if "global " in code:
