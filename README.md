@@ -110,16 +110,54 @@ pip install dist/rate_my_code-0.1.0-py3-none-any.whl
 
 ---
 
-### 5. Publishing (Best Practice)
+### 5. Publishing & CI/CD (Best Practice)
 
-Eigentlich solltest du das Package nicht manuell hochladen, sondern über eine **GitHub Action Workflow Pipeline** deployen.  
-Diese führt dann automatisch:  
-- Tests  
-- Linter & Checks  
-- Build  
-- Upload in PyPI / Nexus / Artifactory  
+Statt das Package manuell hochzuladen, empfehlen wir die **GitHub Actions Pipeline**, um Releases automatisiert zu bauen und zu veröffentlichen.  
 
-*(→ siehe `.github/workflows/publish.yml` in diesem Projekt – kommt bald ✨)*  
+Es gibt zwei Pipelines:
+
+- **CI-Pipeline (`ci.yml`)**: Läuft auf Pull Requests, prüft Codequalität und Tests.
+- **Publish-Pipeline (`publish.yml`)**: Läuft bei Tags auf `main`, baut das Package und veröffentlicht es auf Nexus / PyPI / Artifactory.
+
+---
+
+#### 5.1 Entwicklung
+
+1. **Neues Feature auf Feature-Branch entwickeln**
+   ```bash
+   git checkout -b feature/meine-neuerung
+   ```
+2. Branch zu Remote pushen
+   ```bash
+   git push -u origin feature/meine-neuerung
+   ```
+#### 5.1 Pull Request (PR) erstellen
+Auf GitHub einen PR von `feature/meine-neuerung` → `main` erstellen.
+
+- **CI Workflow (`ci.yml`) läuft automatisch**:
+  - Code formatieren (black)
+  - Linting (flake8)
+  - Typprüfung (mypy)
+  - Tests ausführen (pytest)
+
+- Feedback prüfen, ggf. Änderungen einpflegen und PR mergen.
+
+#### 5.2 Release erstellen
+1. Auf main wechseln und pull
+```bash
+git switch main
+git pull
+```
+2. Tag für Release erstellen
+```bash
+git tag -a v0.1.0 -m "Release v0.1.0"
+git push -tags
+```
+3. Release auf GitHub erstellen
+GitHub zeigt das neue Tag → Release erstellen → Changelog ggf. ergänzen.
+
+#### 5.3 Publish Workflow
+Workflow .github/workflows/publish.yml wird durch das Tag ausgelöst.
 
 ## 📁 Package-Struktur
 
