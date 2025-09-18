@@ -3,6 +3,7 @@ name: CI
 on:
   pull_request:
     branches: [ main ]
+  workflow_dispatch: # <-- manuell ausführen
   workflow_call: # erlaubt Wiederverwendung
     inputs:
       run_tests:
