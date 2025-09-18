@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rate-my-code"
+version = "0.1.0"
+description = "A funny toy package to rate your Python code (or Cod fish 🐟, or Kot 🤢)."
+authors = [
+    { name = "Dein Name", email = "dein.email@example.com" }
+]
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.9"
+
+dependencies = [
+    # hier würden echte Runtime-Dependencies rein, aktuell keine nötig
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "black>=24.0",
+    "flake8>=7.0",
+    "mypy>=1.0",
+]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q"
+testpaths = [
+    "tests",
+]
+
+[tool.black]
+line-length = 88
+target-version = ['py39']

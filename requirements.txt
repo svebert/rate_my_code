@@ -1,0 +1,2 @@
+# Runtime dependencies for rate_my_code
+# Derzeit keine externen Abhängigkeiten erforderlich.
