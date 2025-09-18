@@ -28,4 +28,31 @@ def zen_count(code: str) -> tuple[int, list[str]]:
         count += 1
         notes.append("Fehlerbehandlung erkannt – Errors should never pass silently.")
 
+    # 5) Einfache vs komplexe Ausdrücke
+    if any(op in code for op in [" and ", " or ", " not "]):
+        count += 1
+        notes.append("Logische Operatoren genutzt – Explicit is better than implicit.")
+
+    # 6) String-Formatierungen
+    if any(f in code for f in ["f'", 'f"']):
+        count += 1
+        notes.append("F-Strings erkannt – Beautiful is better than ugly.")
+
+    # 7) Einzeilige if/else vermeiden
+    if "else:" in code and code.count("\n") < 3:
+        count += 1
+        notes.append("Kurze Einzeiler if/else – Simple is better than complex.")
+
+    # 8) Funktionen und Klassen
+    if "def " in code or "class " in code:
+        count += 1
+        notes.append("Funktionen oder Klassen definiert – There should be one obvious way to do it.")
+
+    # 9) Keine globalen Variablen
+    if "global " in code:
+        notes.append("Globale Variablen gefunden – Refuse the temptation to guess.")
+    else:
+        count += 1
+        notes.append("Keine globalen Variablen – Good practice!")
+
     return count, notes
