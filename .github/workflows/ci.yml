@@ -3,6 +3,7 @@ name: CI
 on:
   pull_request:
     branches: [ main ]
+  workflow_dispatch: # <-- manuell ausführen
   workflow_call: # erlaubt Wiederverwendung
     inputs:
       run_tests:
@@ -13,6 +14,10 @@ on:
 jobs:
   check:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.9, 3.10, 3.11, 3.12, 3.13]
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3

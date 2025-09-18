@@ -3,3 +3,5 @@
 *.egg-info/
 .eggs/
 dist/
+rate_my_code/__pycache__/
+tests/__pycache__/
