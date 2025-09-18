@@ -1,6 +1,13 @@
 [build-system]
-requires = ["setuptools>=61.0"]
+requires = ["setuptools>=61.0", "wheel", "setuptools-scm[toml]>=7.0"]
 build-backend = "setuptools.build_meta"
+
+[tool.setuptools_scm]
+# Verwende die Version aus git tags, fallback auf 0.1.0
+version_scheme = "post-release"
+local_scheme = "dirty-tag"
+fallback_version = "0.1.0"
+write_to = "rate_my_code/_version.py"
 
 [project]
 name = "rate-my-code"
@@ -34,5 +41,5 @@ testpaths = [
 ]
 
 [tool.black]
-line-length = 88
+line-length = 89
 target-version = ['py39']
