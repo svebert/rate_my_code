@@ -23,10 +23,10 @@ def count_dunder_functions(code: str) -> int:
     return len(re.findall(r"def __\w+__", code))
 
 
-def count_zen_of_python_violations(code: str) -> int:
-    """Zählt Zen-of-Python-Notizen (aus zen_score) als Count."""
+def get_zen_notes(code: str) -> List[str]:
+    """Gibt die Zen-of-Python-Notizen zurück."""
     _, notes = zen_count(code)
-    return len(notes)
+    return notes
 
 
 # -----------------------------
@@ -44,8 +44,9 @@ def score_file(code: str) -> dict:
         "pythonic": count_pythonic_comments(code),
         "listcomp": count_list_comprehensions(code),
         "dunder": count_dunder_functions(code),
-        "zen": count_zen_of_python_violations(code),
     }
+
+    zen_notes = get_zen_notes(code)
 
     comments = []
     score = 0
@@ -59,14 +60,9 @@ def score_file(code: str) -> dict:
     if counts["dunder"] > 0:
         comments.append(f"{counts['dunder']} Dunder-Methode(n) gefunden")
         score += counts["dunder"] * 1
-    if counts["zen"] > 0:
-        comments.append(f"{counts['zen']} Zen-of-Python-Hinweis(e)")
-        score += counts["zen"] * 1
-
-    # Zufallsbonus
-    import random
-
-    score += random.randint(-1, 1)
+    if zen_notes:
+        comments.extend(zen_notes)  # <- echte Zen-Hinweise statt nur Count
+        score += len(zen_notes) * 1
 
     # Normalize pro file
     score = max(0, min(score, 10))

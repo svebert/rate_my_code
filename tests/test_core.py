@@ -29,11 +29,11 @@ def test_count_dunder_functions():
     assert count >= 1
 
 
-def test_count_zen_of_python_violations(monkeypatch):
-    # Zen-Score liefert tuple (score, notes)
-    code = "some code"
-    count = core.count_zen_of_python_violations(code)
-    assert isinstance(count, int)
+def test_get_zen_notes():
+    code = "import os  # Test\ntry: pass\nexcept: pass"
+    notes = core.get_zen_notes(code)
+    assert isinstance(notes, list)
+    assert len(notes) > 0
 
 
 # --------------------------
