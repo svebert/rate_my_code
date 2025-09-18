@@ -2,6 +2,7 @@ import tempfile
 from pathlib import Path
 from rate_my_code import run_pylint
 
+
 def test_run_pylint_returns_output():
     with tempfile.TemporaryDirectory() as tmpdir:
         tmp_path = Path(tmpdir)
